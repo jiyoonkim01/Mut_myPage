@@ -5,6 +5,7 @@ import dropdownWhite from "../../assets/images/favorite/dropdown-white.png";
 
 const Content = styled.div`
   padding: 0;
+  background: black;
 `;
 
 const TopContainer = styled.div`
@@ -23,6 +24,40 @@ const Navdiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: black;
+  padding-bottom: 150px;
+`;
+
+const FlowingTextWrapper = styled.div`
+  width: 100%;
+  overflow: hidden;
+  padding: 300px 0;
+`;
+
+const FlowingText = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 50px;
+  font-family: "Lalezar";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 140px;
+  line-height: 150px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  animation: flowText 15s linear infinite;
+  padding: 100px 0;
+
+  @keyframes flowText {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
 `;
 
 const HeadTitle = styled.div`
@@ -67,14 +102,14 @@ const StyledDiv2 = styled.div`
 `;
 
 const DropdownBlackIcon = styled.img`
-  width: 84px;
-  height: 62px;
+  width: 82px;
+  height: 60px;
   padding-right: 100px;
 `;
 
 const DropdownWhiteIcon = styled.img`
-  width: 84px;
-  height: 62px;
+  width: 82px;
+  height: 60px;
   padding-left: 100px;
 `;
 
@@ -125,6 +160,9 @@ const Favorite = () => {
     <Content>
       <TopContainer></TopContainer>
       <MainContent>
+        <FlowingTextWrapper>
+          <FlowingText>Things I Like... Movies, Foods and Music</FlowingText>
+        </FlowingTextWrapper>
         <HeadTitle>Favorite</HeadTitle>
         <Navdiv>
           <StyledDiv>
