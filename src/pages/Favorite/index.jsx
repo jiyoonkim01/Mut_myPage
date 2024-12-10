@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import React from "react";
 import dropdownBlack from "../../assets/images/favorite/dropdown-black.png";
 import dropdownWhite from "../../assets/images/favorite/dropdown-white.png";
@@ -71,6 +72,7 @@ const HeadTitle = styled.div`
   text-align: center;
   color: #ffffff;
   padding: 40px 0 25px 72px;
+  background-color: black;
 `;
 
 const StyledDiv = styled.div`
@@ -155,7 +157,94 @@ const MusicNav = styled.div`
   padding-left: 100px;
 `;
 
+const MoviePage = styled.div`
+  background-color: black;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Title = styled.div`
+  font-family: "Konkhmer Sleokchher", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 85px;
+  line-height: 70px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  margin-left: 50px;
+  padding-top: 70px;
+`;
+
+const MoviePageText = styled.div`
+  font-family: "KoHo", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 90px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  margin-left: 50px;
+`;
+
+const MoviePageText2 = styled.div`
+  font-family: "KoHo", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  margin-left: 50px;
+  margin-bottom: 80px;
+`;
+
+const Features = styled(motion.div)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 50px;
+`;
+
+const FeatureBox = styled(motion.div)`
+  width: 300px;
+  height: 300px;
+  background-color: black;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60px;
+  color: white;
+  text-align: center;
+  font-family: "VITRO CORE TTF";
+`;
+
+const MovieBottomText = styled.div`
+  font-family: "KoHo", sans-serif;
+  color: white;
+`;
+
+const NowShowingMoviePage = styled.div`
+  background-color: #1e1e1e;
+  height: 100vh;
+`;
+
+const boxVariants = {
+  hidden: { opacity: 0, y: 50 }, // 초기 상태
+  visible: { opacity: 1, y: 0 }, // 애니메이션 후 상태
+};
+
 const Favorite = () => {
+  const texts = ["우주", "마법", "판타지", "외국영화"];
+
   return (
     <Content>
       <TopContainer></TopContainer>
@@ -178,6 +267,35 @@ const Favorite = () => {
             <DropdownBlackIcon src={dropdownBlack} alt="dropdown" />
           </StyledDiv>
         </Navdiv>
+        <MoviePage>
+          <Title>Movie</Title>
+          <MoviePageText>내가 좋아하는 영화들은?</MoviePageText>
+          <MoviePageText2>
+            아래의 조건들을 만족하면 대부분 좋아한다고 보면 됨.
+          </MoviePageText2>
+          <Features
+            initial="hidden"
+            animate="visible"
+            transition={{ staggerChildren: 0.2 }} // 각 박스에 지연 효과 적용
+          >
+            {texts.map((text, index) => (
+              <FeatureBox
+                key={index}
+                variants={boxVariants}
+                transition={{
+                  duration: 0.5,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  repeatDelay: 1, // 반복 사이에 1초 지연
+                }}
+              >
+                {text}
+              </FeatureBox>
+            ))}
+          </Features>
+          <MovieBottomText>SF 영화</MovieBottomText>
+        </MoviePage>
+        <NowShowingMoviePage></NowShowingMoviePage>
       </MainContent>
     </Content>
   );
