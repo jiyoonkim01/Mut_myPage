@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import React from "react";
 import dropdownBlack from "../../assets/images/favorite/dropdown-black.png";
 import dropdownWhite from "../../assets/images/favorite/dropdown-white.png";
@@ -158,8 +158,13 @@ const MusicNav = styled.div`
 `;
 
 const MoviePage = styled.div`
-  background-color: black;
-  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    #8d8d8d,
+    #1e1e1e
+  ); /* 위에서 아래로 색상 전환 */
+  background-color: #8d8d8d;
+  height: 70vh;
   display: flex;
   flex-direction: column;
 `;
@@ -214,9 +219,9 @@ const Features = styled(motion.div)`
 `;
 
 const FeatureBox = styled(motion.div)`
-  width: 300px;
-  height: 300px;
-  background-color: black;
+  width: 350px;
+  height: 200px;
+  background-color: none;
   border-radius: 20px;
   display: flex;
   justify-content: center;
@@ -225,11 +230,6 @@ const FeatureBox = styled(motion.div)`
   color: white;
   text-align: center;
   font-family: "VITRO CORE TTF";
-`;
-
-const MovieBottomText = styled.div`
-  font-family: "KoHo", sans-serif;
-  color: white;
 `;
 
 const NowShowingMoviePage = styled.div`
@@ -271,7 +271,7 @@ const Favorite = () => {
           <Title>Movie</Title>
           <MoviePageText>내가 좋아하는 영화들은?</MoviePageText>
           <MoviePageText2>
-            아래의 조건들을 만족하면 대부분 좋아한다고 보면 됨.
+            아래의 조건들을 만족하면 대부분 좋아합니다
           </MoviePageText2>
           <Features
             initial="hidden"
@@ -293,7 +293,6 @@ const Favorite = () => {
               </FeatureBox>
             ))}
           </Features>
-          <MovieBottomText>SF 영화</MovieBottomText>
         </MoviePage>
         <NowShowingMoviePage></NowShowingMoviePage>
       </MainContent>
