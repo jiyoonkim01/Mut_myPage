@@ -422,23 +422,13 @@ const Favorite = () => {
                     textAlign: "center",
                   }}
                 >
-                  {/*
-                  <motion.div
-                    layoutId={`card-image-container-${selectedCard.id}`}
-                    style={{
-                      width: "100%",
-                      height: "200px",
-                      overflow: "hidden",
-                      borderRadius: "16px",
-                    }}
-                  ></motion.div>
-                  */}
                   <motion.div
                     layoutId={`card-title-${selectedCard.id}`}
                     style={{ marginTop: "16px" }}
                   >
                     <h3>{selectedCard.title}</h3>
                   </motion.div>
+                  <selectedCard.Component />
                   <motion.button
                     style={{
                       marginTop: "16px",
