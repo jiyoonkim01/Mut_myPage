@@ -1,8 +1,14 @@
 import styled from "@emotion/styled";
-import { motion, useAnimation } from "framer-motion";
-import React from "react";
+import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import { useState } from "react";
 import dropdownBlack from "../../assets/images/favorite/dropdown-black.png";
 import dropdownWhite from "../../assets/images/favorite/dropdown-white.png";
+import HarryPotter from "../../components/HarryPotter";
+import FantasticBeasts from "../../components/FantasticBeasts";
+import Dune from "../../components/Dune";
+import harryPotterImage from "../../assets/images/favorite/harryPotter.png";
+import fantasticBeastsImage from "../../assets/images/favorite/fantasticBeasts.png";
+import duneImage from "../../assets/images/favorite/dune.png";
 
 const Content = styled.div`
   padding: 0;
@@ -86,7 +92,7 @@ const StyledDiv = styled.div`
   background-color: #d1d1d1;
   border-radius: 50px;
   &:hover {
-    transform: scale(1.05); /* 크기 확대 효과 */
+    transform: scale(1.05);
   }
 `;
 
@@ -99,7 +105,7 @@ const StyledDiv2 = styled.div`
   width: 1300px;
   height: 240px;
   &:hover {
-    transform: scale(1.05); /* 크기 확대 효과 */
+    transform: scale(1.05);
   }
 `;
 
@@ -158,11 +164,7 @@ const MusicNav = styled.div`
 `;
 
 const MoviePage = styled.div`
-  background: linear-gradient(
-    to bottom,
-    #8d8d8d,
-    #1e1e1e
-  ); /* 위에서 아래로 색상 전환 */
+  background: linear-gradient(to bottom, #8d8d8d, #1e1e1e);
   background-color: #8d8d8d;
   height: 70vh;
   display: flex;
@@ -234,7 +236,40 @@ const FeatureBox = styled(motion.div)`
 
 const NowShowingMoviePage = styled.div`
   background-color: #1e1e1e;
-  height: 100vh;
+  height: 150%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+`;
+
+const Card = styled(motion.li)`
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-top: 30px;
+  list-style: none;
+  width: 900px;
+  height: 500px;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transform-origin: center center;
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+
+const CardContent = styled(motion.div)`
+  padding: 16px;
+  text-align: center;
+  color: white;
+  font-size: 50px;
+  margin-top: 250px;
 `;
 
 const boxVariants = {
@@ -242,8 +277,51 @@ const boxVariants = {
   visible: { opacity: 1, y: 0 }, // 애니메이션 후 상태
 };
 
+const cards = [
+  {
+    id: "harry",
+    title: "Harry Potter",
+    Component: HarryPotter,
+    image: harryPotterImage,
+  },
+  {
+    id: "beasts",
+    title: "Fantastic Beasts",
+    Component: FantasticBeasts,
+    image: fantasticBeastsImage,
+  },
+  {
+    id: "dune",
+    title: "Dune",
+    Component: Dune,
+    image: duneImage,
+  },
+];
+
 const Favorite = () => {
   const texts = ["우주", "마법", "판타지", "외국영화"];
+
+  const [selectedCard, setSelectedCard] = useState(null);
+  const animationControls = useAnimation();
+
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+    animationControls.start({
+      scale: 1,
+      opacity: 1,
+      transition: { duration: 0.5 },
+    });
+  };
+
+  const handleClose = () => {
+    animationControls
+      .start({
+        scale: 0,
+        opacity: 0,
+        transition: { duration: 0.5 },
+      })
+      .then(() => setSelectedCard(null));
+  };
 
   return (
     <Content>
@@ -276,7 +354,7 @@ const Favorite = () => {
           <Features
             initial="hidden"
             animate="visible"
-            transition={{ staggerChildren: 0.2 }} // 각 박스에 지연 효과 적용
+            transition={{ staggerChildren: 0.2 }}
           >
             {texts.map((text, index) => (
               <FeatureBox
@@ -286,7 +364,7 @@ const Favorite = () => {
                   duration: 0.5,
                   repeat: Infinity,
                   repeatType: "reverse",
-                  repeatDelay: 1, // 반복 사이에 1초 지연
+                  repeatDelay: 1,
                 }}
               >
                 {text}
@@ -294,7 +372,93 @@ const Favorite = () => {
             ))}
           </Features>
         </MoviePage>
-        <NowShowingMoviePage></NowShowingMoviePage>
+        <NowShowingMoviePage>
+          {cards.map((card) => (
+            <Card
+              key={card.id}
+              layoutId={`card-container-${card.id}`}
+              whileHover={{ scale: 1.05 }}
+              onClick={() => handleCardClick(card)}
+              style={{
+                backgroundImage: `url(${card.image})`,
+              }}
+            >
+              <CardContent layoutId={`card-content-${card.id}`}>
+                <h3>{card.title}</h3>
+              </CardContent>
+            </Card>
+          ))}
+
+          <AnimatePresence>
+            {selectedCard && (
+              <motion.div
+                layoutId={`card-container-${selectedCard.id}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  width: "100vw",
+                  height: "100vh",
+                  backgroundColor: "rgba(0, 0, 0, 0.8)",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  zIndex: 1000,
+                }}
+                onClick={handleClose}
+              >
+                <motion.div
+                  layoutId={`card-content-${selectedCard.id}`}
+                  style={{
+                    backgroundColor: "white",
+                    borderRadius: "16px",
+                    padding: "24px",
+                    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.3)",
+                    width: "1000px",
+                    height: "900px",
+                    textAlign: "center",
+                  }}
+                >
+                  {/*
+                  <motion.div
+                    layoutId={`card-image-container-${selectedCard.id}`}
+                    style={{
+                      width: "100%",
+                      height: "200px",
+                      overflow: "hidden",
+                      borderRadius: "16px",
+                    }}
+                  ></motion.div>
+                  */}
+                  <motion.div
+                    layoutId={`card-title-${selectedCard.id}`}
+                    style={{ marginTop: "16px" }}
+                  >
+                    <h3>{selectedCard.title}</h3>
+                  </motion.div>
+                  <motion.button
+                    style={{
+                      marginTop: "16px",
+                      padding: "8px 16px",
+                      backgroundColor: "#007bff",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "8px",
+                      cursor: "pointer",
+                    }}
+                    whileHover={{ scale: 1.1 }}
+                    onClick={handleClose}
+                  >
+                    Close
+                  </motion.button>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </NowShowingMoviePage>
       </MainContent>
     </Content>
   );
