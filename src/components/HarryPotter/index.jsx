@@ -1,6 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { motion } from "framer-motion";
-
 const HarryPotter = () => {
   return (
     <div>
