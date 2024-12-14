@@ -9,6 +9,7 @@ import Dune from "../../components/Dune";
 import harryPotterImage from "../../assets/images/favorite/harryPotter.png";
 import fantasticBeastsImage from "../../assets/images/favorite/fantasticBeasts.png";
 import duneImage from "../../assets/images/favorite/dune.png";
+import cardData from "../../components/Food";
 
 const Content = styled.div`
   padding: 0;
@@ -171,7 +172,7 @@ const MoviePage = styled.div`
   flex-direction: column;
 `;
 
-const Title = styled.div`
+const MovieTitle = styled.div`
   font-family: "Konkhmer Sleokchher", sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -236,7 +237,7 @@ const FeatureBox = styled(motion.div)`
 
 const NowShowingMoviePage = styled.div`
   background-color: #1e1e1e;
-  height: 150%;
+  height: 155%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -270,6 +271,102 @@ const CardContent = styled(motion.div)`
   color: white;
   font-size: 50px;
   margin-top: 250px;
+`;
+
+const FoodPage = styled.div`
+  height: 100vh;
+  background-color: white;
+`;
+
+const FoodTitle = styled.div`
+  font-family: "Konkhmer Sleokchher", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 85px;
+  line-height: 70px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: black;
+  margin-left: 50px;
+  padding-top: 70px;
+`;
+
+const FoodPageText = styled.div`
+  font-family: "KoHo", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 90px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: black;
+  margin-left: 50px;
+  margin-bottom: 40px;
+`;
+
+const FoodCardsWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
+const FoodCards = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 65px;
+  row-gap: 40px;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(1, 1fr);
+    justify-content: center;
+  }
+`;
+
+const FoodCard = styled.div`
+  width: 420px;
+  height: 330px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const CardImage = styled.img`
+  width: 330px;
+  height: 330px;
+  object-fit: cover;
+`;
+
+const CardText = styled.div`
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  margin-left: 18px;
+  display: flex;
+  gap: 10px;
+  padding-top: 20px;
+  text-align: center;
+
+  font-family: "Paperlogy-8ExtraBold";
+  font-size: 38px;
+  line-height: 50px;
+  color: #000000;
+
+  @font-face {
+    font-family: "Paperlogy-8ExtraBold";
+    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2")
+      format("woff2");
+    font-weight: 800;
+    font-style: normal;
+  }
 `;
 
 const boxVariants = {
@@ -346,7 +443,7 @@ const Favorite = () => {
           </StyledDiv>
         </Navdiv>
         <MoviePage>
-          <Title>Movie</Title>
+          <MovieTitle>Movie</MovieTitle>
           <MoviePageText>내가 좋아하는 영화들은?</MoviePageText>
           <MoviePageText2>
             아래의 조건들을 만족하면 대부분 좋아합니다
@@ -450,6 +547,26 @@ const Favorite = () => {
             )}
           </AnimatePresence>
         </NowShowingMoviePage>
+        <FoodPage>
+          <FoodTitle>Food</FoodTitle>
+          <FoodPageText>내가 엄선한 후보들</FoodPageText>
+          <FoodCardsWrapper>
+            <FoodCards>
+              {cardData.map((item) => (
+                <FoodCard key={item.id}>
+                  <CardImage src={item.image} alt={`Food ${item.id}`} />
+                  <CardText>
+                    {item.content.split("").map((char, index) => (
+                      <span key={index}>
+                        {char}
+                      </span> /* 글자를 하나씩 나눠서 표시 */
+                    ))}
+                  </CardText>
+                </FoodCard>
+              ))}
+            </FoodCards>
+          </FoodCardsWrapper>
+        </FoodPage>
       </MainContent>
     </Content>
   );
