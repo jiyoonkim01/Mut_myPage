@@ -400,44 +400,45 @@ const Favorite = () => {
                   position: "fixed",
                   top: 0,
                   left: 0,
-                  width: "100vw",
-                  height: "100vh",
+                  width: "100%",
+                  height: "100%",
                   backgroundColor: "rgba(0, 0, 0, 0.8)",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   zIndex: 1000,
+                  overflow: "hidden",
                 }}
                 onClick={handleClose}
               >
                 <motion.div
                   layoutId={`card-content-${selectedCard.id}`}
                   style={{
-                    backgroundColor: "white",
+                    backgroundColor: "#EFEFEF",
                     borderRadius: "16px",
                     padding: "24px",
-                    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.3)",
                     width: "1000px",
                     height: "900px",
-                    textAlign: "center",
+                    textAlign: "right",
                   }}
                 >
                   <motion.div
                     layoutId={`card-title-${selectedCard.id}`}
                     style={{ marginTop: "16px" }}
-                  >
-                    <h3>{selectedCard.title}</h3>
-                  </motion.div>
+                  ></motion.div>
                   <selectedCard.Component />
                   <motion.button
                     style={{
-                      marginTop: "16px",
-                      padding: "8px 16px",
-                      backgroundColor: "#007bff",
+                      marginTop: "10px",
+                      padding: "10px 70px",
+                      backgroundColor: "#1C1C1C",
                       color: "white",
                       border: "none",
-                      borderRadius: "8px",
+                      fontSize: "20px",
+                      lineHeight: "30px",
+                      borderRadius: "16px",
                       cursor: "pointer",
+                      marginRight: "30px",
                     }}
                     whileHover={{ scale: 1.1 }}
                     onClick={handleClose}
