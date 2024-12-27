@@ -293,17 +293,29 @@ const FoodTitle = styled.div`
 `;
 
 const FoodPageText = styled.div`
-  font-family: "KoHo", sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 50px;
-  line-height: 90px;
+  font-size: 40px;
+  line-height: 70px;
   display: flex;
   align-items: center;
   text-align: center;
   color: black;
   margin-left: 50px;
   margin-bottom: 40px;
+  font-family: "omyu_pretty";
+  color: #000000;
+
+  @font-face {
+    font-family: "omyu_pretty";
+    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2")
+      format("woff2");
+    font-weight: normal;
+    font-style: normal;
+  }
+`;
+
+const MusicPage = styled.div`
+  height: 100vh;
+  background-color: black;
 `;
 
 const boxVariants = {
@@ -486,9 +498,10 @@ const Favorite = () => {
         </NowShowingMoviePage>
         <FoodPage>
           <FoodTitle>Food</FoodTitle>
-          <FoodPageText>내가 좋아하는 음식은?</FoodPageText>
+          <FoodPageText>아래 식당이름을 클릭해보세요!</FoodPageText>
           <FoodMap />
         </FoodPage>
+        <MusicPage></MusicPage>
       </MainContent>
     </Content>
   );
